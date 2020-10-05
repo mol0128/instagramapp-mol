@@ -4,7 +4,10 @@
       = current_user.name
 
     .profilePage_user_image
-      = image_tag 'default-avatar.png'
+      - if current_user&.profile&.avatar&.attached?
+        = image_tag current_user.profile.avatar
+      - else
+        = image_tag 'default-avatar.png'
 
     %ul.profilePage_user_count
       %li
