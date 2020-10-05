@@ -13,15 +13,15 @@ class ProfilesController < ApplicationController
     @profile = current_user.prepare_profile
     @profile.assign_attributes(profile_params)
     if @profile.save
-      redirect_to profile_path, notice: 'プロフィール更新！'
+      redirect_to profile_path, notice: 'プロフィール画像を変更しました'
     else
       flash.now[:error] = '更新できませんでした'
-      render :edit
+      render :show
     end
   end
 
   private
   def profile_params
-    params.require(:profile).permit(:avatar)
+    params.require(:profile).permit(:avatar, :name)
   end
 end

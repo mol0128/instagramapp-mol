@@ -2,6 +2,10 @@
 
 $image_size: 56px;
 
+.profilePage {
+  text-align: center;
+}
+
 .avatar-image {
   display: inline-block;
   input{
@@ -15,4 +19,11 @@ $image_size: 56px;
     height: $image_size;
     border-radius: 100%;
   }
+}
+
+.profilePage_user_count {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0px;
+  margin: 10px 20px;
 }

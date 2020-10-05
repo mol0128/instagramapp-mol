@@ -16,8 +16,8 @@
               = image_tag current_user.profile.avatar
             - else
               = image_tag 'default-avatar.png'
-
-      = f.submit '保存'
+      %div
+        = f.submit '更新', class: 'btn-edit'
 
     %ul.profilePage_user_count
       %li
