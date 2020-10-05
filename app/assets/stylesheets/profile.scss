@@ -1,7 +1,18 @@
 @import 'variables';
 
+$image_size: 56px;
+
 .avatar-image {
+  display: inline-block;
   input{
     display: none;
+  }
+}
+
+.profilePage_user_image {
+  img{
+    width: $image_size;
+    height: $image_size;
+    border-radius: 100%;
   }
 }

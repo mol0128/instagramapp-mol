@@ -16,15 +16,12 @@ class ProfilesController < ApplicationController
       redirect_to profile_path, notice: 'プロフィール更新！'
     else
       flash.now[:error] = '更新できませんでした'
-      render :show
+      render :edit
     end
   end
 
   private
   def profile_params
-    params.require(:profile).permit(
-      :name,
-      :avatar
-    )
+    params.require(:profile).permit(:avatar)
   end
 end
