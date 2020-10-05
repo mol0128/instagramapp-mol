@@ -1,0 +1,18 @@
+.container.profilePage
+  .profilePage_user
+    .profilePage_user_name
+      = current_user.name
+
+    .profilePage_user_image
+      - if current_user&.profile&.avatar&.attached?
+        = image_tag current_user.profile.avatar
+      - else
+        = image_tag 'default-avatar.png'
+
+    %ul.profilePage_user_count
+      %li
+        Photos
+      %li
+        Followers
+      %li
+        Following

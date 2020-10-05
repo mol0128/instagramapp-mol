@@ -1,0 +1,28 @@
+.container.profilePage
+  .profilePage_user
+    .profilePage_user_name
+      = current_user.name
+
+    %ul
+    - @profile.errors.full_messages.each do |message|
+      %li= message
+
+    = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
+      = f.label :avatar, class: 'avatar-image' do
+        %div
+          = f.file_field :avatar
+          .profilePage_user_image
+            - if current_user&.profile&.avatar&.attached?
+              = image_tag current_user.profile.avatar
+            - else
+              = image_tag 'default-avatar.png'
+      %div
+        = f.submit '更新', class: 'btn-edit'
+
+    %ul.profilePage_user_count
+      %li
+        Photos
+      %li
+        Followers
+      %li
+        Following
