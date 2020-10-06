@@ -1,3 +1,4 @@
-= @article.content
 - @article.images.each do |image|
-  = image_tag image
+  .article-image
+    = image_tag image
+= @article.content
