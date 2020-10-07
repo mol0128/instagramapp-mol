@@ -6,3 +6,20 @@
     height: 250px;
   }
 }
+
+.article-container {
+  margin-top: 20px;
+}
+
+.article-content {
+  margin-bottom: 30px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: left;
+}
+
+.user-name {
+  font-weight: bold;
+}

@@ -1,5 +1,25 @@
-- @articles.each do |article|
-  - article.images.each do |image|
-    .article-image
-      = image_tag image
-  = article.content
+.container
+  .post-btn
+    = link_to new_article_path do
+      %i.fa.fa-camera{"aria-hidden" => "true"}
+
+  .article-container
+    - @articles.each do |article|
+      .user-info
+        .user-avatar
+          = image_tag article.user.profile.avatar
+        .user-name
+          = article.user.name
+      - article.images.each do |image|
+        .article-image
+          = image_tag image
+      .article-content
+        .article-status
+          %i.fa.fa-heart-o{"aria-hidden" => "true"}
+          %i.fa.fa-comment-o{"aria-hidden" => "true"}
+          %i.fa.fa-share-alt{"aria-hidden" => "true"}
+        .article-detail
+          = article.content
+          %br
+          = article.created_at
+
