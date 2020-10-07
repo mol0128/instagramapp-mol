@@ -17,7 +17,8 @@
         .article-status
           %i.fa.fa-heart-o{"aria-hidden" => "true"}
           %i.fa.fa-comment-o{"aria-hidden" => "true"}
-          %i.fa.fa-share-alt{"aria-hidden" => "true"}
+          = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
+            %i.fa.fa-share-alt{"aria-hidden" => "true"}
         .article-detail
           = article.content
           %br
