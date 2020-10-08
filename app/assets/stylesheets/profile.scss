@@ -13,7 +13,7 @@ $image_size: 56px;
   }
 }
 
-.profilePage_user_image {
+.profilePage_user_image, .user-avatar {
   img{
     width: $image_size;
     height: $image_size;
