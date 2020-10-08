@@ -10,6 +10,11 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %link{:href => "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}/
   %body
-    %p.notice= notice
-    %p.alert= alert
+    %header.header
+      = link_to 'ログイン', new_user_session_path
+      = link_to 'ログアウト', destroy_user_session_path, data: { method: 'delete' }
+      = link_to 'アカウントページ', edit_profile_path
+      = link_to 'お気に入り', favorites_path
+      %p.notice= notice
+      %p.alert= alert
     = yield
