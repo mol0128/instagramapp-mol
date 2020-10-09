@@ -3,7 +3,7 @@
     = link_to new_article_path do
       %i.fa.fa-camera{"aria-hidden" => "true"}
 
-  .article-container
+  .article-container#article-show{data: {article_id: @articles.ids}}
     - @articles.each do |article|
       .user-info
         .user-avatar
