@@ -19,11 +19,40 @@ require("channels")
 import $ from 'jquery'
 import axios from 'axios'
 
-document.addEventListener('DOMContentLoaded', () => {
-  const dataset = $('#article-show').data()
-  const articleId = dataset.articleId
-  axios.get(`/articles/${articleId}/like`)
-    .then((response) => {
-      console.log(response)
-    })
+
+$(function(){
+  $('.inactive-heart').on('click', () => {
+    const dataset = $('.article-likes').data()
+    const articleId = dataset.articleId
+    debugger
+    axios.post(`/articles/${articleId}/like`)
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $('.active-heart').removeClass('hidden')
+          $('.inactive-heart').addClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('Error')
+        console.log(e)
+      })
+  })
+})
+
+$(function(){
+  $('.active-heart').on('click', () => {
+    const dataset = $('.article-likes').data()
+    const articleId = dataset.articleId
+    axios.delete(`/articles/${articleId}/like`)
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $('.inactive-heart').removeClass('hidden')
+          $('.active-heart').addClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('Error')
+        console.log(e)
+      })
+  })
 })

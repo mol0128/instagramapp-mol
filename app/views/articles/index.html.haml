@@ -3,7 +3,7 @@
     = link_to new_article_path do
       %i.fa.fa-camera{"aria-hidden" => "true"}
 
-  .article-container#article-show{data: {article_id: @articles.ids}}
+  .article-container
     - @articles.each do |article|
       .user-info
         .user-avatar
@@ -14,16 +14,14 @@
         .article-image
           = image_tag image
       .article-content
-        .article-status
-          - if current_user.has_liked?(article)
-            =link_to article_like_path(article), data: { method: 'delete' } do
-              %i.fa.fa-heart{"aria-hidden" => "true"}
-          - else
-            = link_to article_like_path(article), data: { method: 'post' } do
-              %i.fa.fa-heart-o{"aria-hidden" => "true"}
-          %i.fa.fa-comment-o{"aria-hidden" => "true"}
-          = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
-            %i.fa.fa-share-alt{"aria-hidden" => "true"}
+        .article-likes#article-like{data: {article_id: article.id}}
+          .active-heart
+            %i.fa.fa-heart{"aria-hidden" => "true"}
+          .inactive-heart
+            %i.fa.fa-heart-o{"aria-hidden" => "true"}
+        %i.fa.fa-comment-o{"aria-hidden" => "true"}
+        = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
+          %i.fa.fa-share-alt{"aria-hidden" => "true"}
         .article-detail
           = article.content
           %br
