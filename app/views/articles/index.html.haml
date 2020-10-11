@@ -14,7 +14,7 @@
         .article-image
           = image_tag image
       .article-content
-        .article-btn#article-like{data: {article_id: article.id}}
+        .article-btn#article-like{:id => "likes-#{article.id}"} 
           .article-heart.active-heart
             %i.fa.fa-heart{"aria-hidden" => "true"}
           .article-heart.inactive-heart

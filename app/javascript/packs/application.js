@@ -25,13 +25,12 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 $(function(){
   $('.inactive-heart').on('click', () => {
-    const dataset = $('.article-btn').data()
-    const articleId = dataset.articleId
-    axios.post(`/articles/${articleId}/like`)
+    const id = $('.article-btn').attr('id')
+    axios.post(`/articles/${id}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
-          $('.active-heart').removeClass('hidden')
-          $('.inactive-heart').addClass('hidden')
+          $('.active-heart-${id}').removeClass('hidden')
+          $('.inactive-heart-${id}').addClass('hidden')
         }
       })
       .catch((e) => {
