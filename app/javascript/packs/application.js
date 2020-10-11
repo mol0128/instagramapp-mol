@@ -18,13 +18,15 @@ require("channels")
 
 import $ from 'jquery'
 import axios from 'axios'
+import { csrfToken } from 'rails-ujs'
+
+axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 
 $(function(){
   $('.inactive-heart').on('click', () => {
-    const dataset = $('.article-likes').data()
+    const dataset = $('.article-btn').data()
     const articleId = dataset.articleId
-    debugger
     axios.post(`/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
@@ -41,7 +43,7 @@ $(function(){
 
 $(function(){
   $('.active-heart').on('click', () => {
-    const dataset = $('.article-likes').data()
+    const dataset = $('.article-btn').data()
     const articleId = dataset.articleId
     axios.delete(`/articles/${articleId}/like`)
       .then((response) => {
