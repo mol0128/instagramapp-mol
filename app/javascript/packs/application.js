@@ -24,8 +24,9 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 
 $(function(){
-  $('.inactive-heart').on('click', () => {
-    const articleId = $('.article-btn').attr('article_id')
+  const articleId = $('.inactive-heart').attr('id')
+  $(`${articleId}` + '.inactive-heart').on('click', () => {
+    // const articleId = $('.article-btn').attr('article_id')
     axios.post(`/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {

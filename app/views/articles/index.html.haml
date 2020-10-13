@@ -14,10 +14,10 @@
         .article-image
           = image_tag image
       .article-content
-        .article-btn#article-like{article_id: article.id}
+        .article-btn
           .article-heart.active-heart
             %i.fa.fa-heart{"aria-hidden" => "true"}
-          .article-heart.inactive-heart
+          .article-heart.inactive-heart{:id => "#{article.id}"}
             %i.fa.fa-heart-o{"aria-hidden" => "true"}
           .article-comment-btn
             %i.fa.fa-comment-o{"aria-hidden" => "true"}
