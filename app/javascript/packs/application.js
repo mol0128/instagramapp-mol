@@ -15,3 +15,43 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import $ from 'jquery'
+import axios from 'axios'
+import { csrfToken } from 'rails-ujs'
+
+axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
+
+$(function(){
+  $(`.inactive-heart`).on('click', function() {
+    const articleId = $(this).attr('id')
+    axios.post(`/articles/${articleId}/like`)
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $(this).addClass('hidden')
+          $(`#${articleId}.active-heart`).removeClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('Error')
+        console.log(e)
+      })
+  })
+})
+
+$(function(){
+  $(`.active-heart`).on('click', function() {
+    const articleId = $(this).attr('id')
+    axios.delete(`/articles/${articleId}/like`)
+      .then((response) => {
+        if (response.data.status === 'ok') {
+          $(`#${articleId}.inactive-heart`).removeClass('hidden')
+          $(this).addClass('hidden')
+        }
+      })
+      .catch((e) => {
+        window.alert('Error')
+        console.log(e)
+      })
+  })
+})
