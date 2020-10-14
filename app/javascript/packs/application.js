@@ -24,14 +24,13 @@ axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 
 $(function(){
-  const articleId = $('.inactive-heart').attr('id')
-  $(`${articleId}` + '.inactive-heart').on('click', () => {
-    // const articleId = $('.article-btn').attr('article_id')
+  $(`.inactive-heart`).on('click', function() {
+    const articleId = $(this).attr('id')
     axios.post(`/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
-          $('.active-heart').removeClass('hidden')
-          $('.inactive-heart').addClass('hidden')
+          $(this).addClass('hidden')
+          $(`#${articleId}.active-heart`).removeClass('hidden')
         }
       })
       .catch((e) => {
@@ -42,16 +41,13 @@ $(function(){
 })
 
 $(function(){
-  $('.active-heart').on('click', () => {
-    // const dataset = $('.article-btn').data()
-    // const articleId = dataset.articleId
-    // axios.delete(`/articles/${articleId}/like`)
-    const articleId = $('.article-btn').attr('article_id')
+  $(`.active-heart`).on('click', function() {
+    const articleId = $(this).attr('id')
     axios.delete(`/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
-          $('.inactive-heart').removeClass('hidden')
-          $('.active-heart').addClass('hidden')
+          $(`#${articleId}.inactive-heart`).removeClass('hidden')
+          $(this).addClass('hidden')
         }
       })
       .catch((e) => {
