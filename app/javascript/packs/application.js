@@ -22,7 +22,6 @@ import { csrfToken } from 'rails-ujs'
 
 axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
-
 $(function(){
   $(`.inactive-heart`).on('click', function() {
     const articleId = $(this).attr('id')

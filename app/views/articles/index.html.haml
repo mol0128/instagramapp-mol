@@ -14,11 +14,17 @@
         .article-image
           = image_tag image
       .article-content
-        .article-btn
-          .article-heart.hidden.active-heart{:id => "#{article.id}"}
-            %i.fa.fa-heart{"aria-hidden" => "true"}
-          .article-heart.inactive-heart{:id => "#{article.id}"}
-            %i.fa.fa-heart-o{"aria-hidden" => "true"}
+        .article-btn#articles{data: {article_id: article.id}}
+          - if current_user.has_liked?(article)
+            .article-heart.active-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart{"aria-hidden" => "true"}
+            .article-heart.hidden.inactive-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart-o{"aria-hidden" => "true"}
+          - else
+            .article-heart.inactive-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart-o{"aria-hidden" => "true"}
+            .article-heart.hidden.active-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart{"aria-hidden" => "true"}
           .article-comment-btn
             %i.fa.fa-comment-o{"aria-hidden" => "true"}
           = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
