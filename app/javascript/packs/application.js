@@ -69,7 +69,10 @@ document.addEventListener('turbolinks:load', () => {
           const comments = response.data
           comments.forEach((comment) => {
             $('.comments-container').append(
-              `<div class="article-comment"><p>${comment.content}</p></div>`
+              `<div class="article-comment">
+                <p>${comment.user.name}</p>
+                <p>${comment.content}</p><br>
+              </div>`
             )
           })
         })
