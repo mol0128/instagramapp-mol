@@ -14,7 +14,7 @@
         .article-image
           = image_tag image
       .article-content
-        .article-btn#articles{data: {article_id: article.id}}
+        .article-btn#articles{data: {article_show_id: article.id}}
           - if current_user.has_liked?(article)
             .article-heart.active-heart{:id => "#{article.id}"}
               %i.fa.fa-heart{"aria-hidden" => "true"}
