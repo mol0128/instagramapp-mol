@@ -23,7 +23,7 @@ import { csrfToken } from 'rails-ujs'
 axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', () => {
 
   $(function(){
     $(`.inactive-heart`).on('click', function() {
@@ -59,35 +59,36 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   })
 
-  if(document.URL.match(/articles/)) {
-    const dataset = $('#article-show').data()
-    const articleShowId = dataset.articleShowId
-  
-    axios.get(`/articles/${articleShowId}/comments`)
-      .then((response) => {
-        const comments = response.data
-        comments.forEach((comment) => {
-          $('.comments-container').append(
-            `<div class="article-comment"><p>${comment.content}</p></div>`
-          )
-        })
-      })
-  
-      $('.add-comment-btn').on('click', () => {
-        const content = $('#comment_content').val()
-        if (!content) {
-          window.alert('コメントを入力してください')
-        } else
-        axios.post(`/articles/${articleShowId}/comments`, {
-          comment: {content: content}
-        })
-          .then((res) => {
-            const comment = res.data
+    if($('#article-show').length) {
+
+      const dataset = $('#article-show').data()
+      const articleShowId = dataset.articleShowId
+    
+      axios.get(`/articles/${articleShowId}/comments`)
+        .then((response) => {
+          const comments = response.data
+          comments.forEach((comment) => {
             $('.comments-container').append(
               `<div class="article-comment"><p>${comment.content}</p></div>`
             )
-            $('#comment_content').val('')
           })
-      })
-  }
+        })
+    
+        $('.add-comment-btn').on('click', () => {
+          const content = $('#comment_content').val()
+          if (!content) {
+            window.alert('コメントを入力してください')
+          } else
+          axios.post(`/articles/${articleShowId}/comments`, {
+            comment: {content: content}
+          })
+            .then((res) => {
+              const comment = res.data
+              $('.comments-container').append(
+                `<div class="article-comment"><p>${comment.content}</p></div>`
+              )
+              $('#comment_content').val('')
+            })
+        })
+    }
 })
