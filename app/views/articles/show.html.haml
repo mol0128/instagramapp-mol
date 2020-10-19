@@ -1,7 +1,5 @@
 .container
-  - @comments.each do |comment|
-    .article-comment
-      %p= comment.content
+  .comments-container
 
 .container
   = link_to new_article_comment_path(@article) do

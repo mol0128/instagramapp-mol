@@ -25,7 +25,7 @@
               %i.fa.fa-heart-o{"aria-hidden" => "true"}
             .article-heart.hidden.active-heart{:id => "#{article.id}"}
               %i.fa.fa-heart{"aria-hidden" => "true"}
-          = link_to new_article_comment_path(article) do
+          = link_to article_path(article) do
             .article-comment-btn
               %i.fa.fa-comment-o{"aria-hidden" => "true"}
           = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
