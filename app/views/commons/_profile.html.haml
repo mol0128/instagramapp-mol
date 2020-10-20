@@ -1,11 +1,36 @@
 .container
-  %h2
-    favorite
-  - @articles.each do |article|
+  .profilePage
+    .profilePage_user
+      .profilePage_user_name
+        = user.name
+        .follow-btn
+          - if user == current_user
+            = link_to 'Edit', edit_profile_path
+          - else
+            - if current_user&.has_followed?(user)
+              = link_to 'Unfollow', account_unfollows_path(user), data: {method: 'post'}
+            - else
+              = link_to 'Follow', account_follows_path(user), data: {method: 'post'}
+
+      .profilePage_user_image
+        - if user&.profile&.avatar&.attached?
+          = image_tag @user.profile.avatar
+        - else
+          = image_tag 'default-avatar.png'
+
+      %ul.profilePage_user_count
+        %li
+          Photos
+        %li
+          Followers
+        %li
+          Following
+
+  .article-container
+  - user.articles.each do |article|
     .user-info
       .user-avatar
-        = link_to account_path(article.user) do
-          = image_tag article.user.avatar_image
+        = image_tag article.user.avatar_image
       .user-name
         = article.user.name
     - article.images.each do |image|
@@ -13,7 +38,7 @@
         = image_tag image
     .article-content
       .article-btn#articles{data: {article_show_id: article.id}}
-        - if current_user.has_liked?(article)
+        - if current_user&.has_liked?(article)
           .article-heart.active-heart{:id => "#{article.id}"}
             %i.fa.fa-heart{"aria-hidden" => "true"}
           .article-heart.hidden.inactive-heart{:id => "#{article.id}"}
@@ -32,4 +57,3 @@
         = article.content
         %br
         = article.created_at
-    
