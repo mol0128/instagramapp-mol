@@ -1,28 +1,61 @@
-.container.profilePage
-  .profilePage_user
-    .profilePage_user_name
-      = current_user.name
+.container
+  .profilePage
+    .profilePage_user
+      .profilePage_user_name
+        = current_user.name
 
-    %ul
-    - @profile.errors.full_messages.each do |message|
-      %li= message
+      %ul
+      - @profile.errors.full_messages.each do |message|
+        %li= message
 
-    = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
-      = f.label :avatar, class: 'avatar-image' do
+      = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
+        = f.label :avatar, class: 'avatar-image' do
+          %div
+            = f.file_field :avatar
+            .profilePage_user_image
+              - if current_user&.profile&.avatar&.attached?
+                = image_tag current_user.profile.avatar
+              - else
+                = image_tag 'default-avatar.png'
         %div
-          = f.file_field :avatar
-          .profilePage_user_image
-            - if current_user&.profile&.avatar&.attached?
-              = image_tag current_user.profile.avatar
-            - else
-              = image_tag 'default-avatar.png'
-      %div
-        = f.submit '更新', class: 'btn-edit'
+          = f.submit '更新', class: 'btn-edit'
 
-    %ul.profilePage_user_count
-      %li
-        Photos
-      %li
-        Followers
-      %li
-        Following
+      %ul.profilePage_user_count
+        %li
+          Photos
+        %li
+          Followers
+        %li
+          Following
+
+  .article-container
+    - current_user.articles.each do |article|
+      .user-info
+        .user-avatar
+          = image_tag article.user.avatar_image
+        .user-name
+          = article.user.name
+      - article.images.each do |image|
+        .article-image
+          = image_tag image
+      .article-content
+        .article-btn#articles{data: {article_show_id: article.id}}
+          - if current_user.has_liked?(article)
+            .article-heart.active-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart{"aria-hidden" => "true"}
+            .article-heart.hidden.inactive-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart-o{"aria-hidden" => "true"}
+          - else
+            .article-heart.inactive-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart-o{"aria-hidden" => "true"}
+            .article-heart.hidden.active-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart{"aria-hidden" => "true"}
+          = link_to article_path(article) do
+            .article-comment-btn
+              %i.fa.fa-comment-o{"aria-hidden" => "true"}
+          = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
+            %i.fa.fa-share-alt{"aria-hidden" => "true"}
+        .article-detail
+          = article.content
+          %br
+          = article.created_at

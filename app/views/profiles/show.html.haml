@@ -22,21 +22,27 @@
     - current_user.articles.each do |article|
       .user-info
         .user-avatar
-          = image_tag article.user.profile.avatar
+          = image_tag article.user.avatar_image
         .user-name
           = article.user.name
       - article.images.each do |image|
         .article-image
           = image_tag image
       .article-content
-        .article-status
+        .article-btn#articles{data: {article_show_id: article.id}}
           - if current_user.has_liked?(article)
-            =link_to article_like_path(article), data: { method: 'delete' } do
+            .article-heart.active-heart{:id => "#{article.id}"}
               %i.fa.fa-heart{"aria-hidden" => "true"}
-          - else
-            = link_to article_like_path(article), data: { method: 'post' } do
+            .article-heart.hidden.inactive-heart{:id => "#{article.id}"}
               %i.fa.fa-heart-o{"aria-hidden" => "true"}
-          %i.fa.fa-comment-o{"aria-hidden" => "true"}
+          - else
+            .article-heart.inactive-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart-o{"aria-hidden" => "true"}
+            .article-heart.hidden.active-heart{:id => "#{article.id}"}
+              %i.fa.fa-heart{"aria-hidden" => "true"}
+          = link_to article_path(article) do
+            .article-comment-btn
+              %i.fa.fa-comment-o{"aria-hidden" => "true"}
           = link_to 'https://twitter.com/intent/tweet?url=https://localhost:3000/articles/' do
             %i.fa.fa-share-alt{"aria-hidden" => "true"}
         .article-detail
