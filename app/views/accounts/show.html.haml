@@ -5,7 +5,7 @@
         = @user.name
         .follow-btn
           - if current_user&.has_followed?(@user)
-            %p フォロー中
+            = link_to 'Unfollow', account_unfollows_path(@user), data: {method: 'post'}
           - else
             = link_to 'Follow', account_follows_path(@user), data: {method: 'post'}
 
