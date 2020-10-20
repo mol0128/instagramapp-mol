@@ -54,4 +54,12 @@ class User < ApplicationRecord
     relation = following_relationships.find_by!(following_id: user.id)
     relation.destroy!
   end
+
+  def avatar_image
+    if profile&.avatar&.attached?
+      profile.avatar
+    else
+      'default-avatar.png'
+    end
+  end
 end
