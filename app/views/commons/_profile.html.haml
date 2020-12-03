@@ -14,7 +14,7 @@
 
       .profilePage_user_image
         - if user&.profile&.avatar&.attached?
-          = image_tag @user.profile.avatar
+          = image_tag user.profile.avatar
         - else
           = image_tag 'default-avatar.png'
 
